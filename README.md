@@ -89,9 +89,10 @@ e is 65537 (0x10001)
 
 $ openssl req -new -key RootCA.key -out RootCA.csr -subj "/CN=customCA"
 
-$ cat extension-file 
+$ cat << EOF > extension-file
 keyUsage               = critical,digitalSignature,keyEncipherment,keyCertSign
 basicConstraints       = critical,CA:true
+EOF
 
 $ openssl x509 -req -days 1460 -in RootCA.csr -signkey RootCA.key -out RootCA.crt -sha256 -extfile extension-file
 Signature ok
